@@ -15,11 +15,11 @@ NUM_LAYERS: int = 4
 FF_DIM: int = 512
 DROPOUT_RATE: float = 0.1
 
-def preprocess_string(input: str) -> np.ndarray:
-    encoded = [ord(c) % VOCAB_SIZE for c in input[:MAX_LENGTH].upper()]
+def preprocess_string(input_str: str) -> np.ndarray:
+    input_str = input_str[:MAX_LENGTH-1].strip().upper()
+    encoded = [ord(c) % VOCAB_SIZE for c in input_str]
     if len(encoded) < MAX_LENGTH:
         encoded.extend([0] * (MAX_LENGTH - len(encoded)))
-    
     return np.array(encoded)
 
 def generate_synthetic_data(samples_per_type: int = 1000) -> Tuple[np.ndarray, np.ndarray]:

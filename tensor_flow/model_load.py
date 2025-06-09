@@ -10,19 +10,20 @@ if __name__ == "__main__":
         0: 'int',
         1: 'float',
         2: 'boolean',
-        3: 'date',
-        4: 'datetime',
-        5: 'uuid',
-        6: 'string'
+        3: 'time',
+        4: 'date',
+        5: 'datetime',
+        6: 'uuid',
+        7: 'string'
     }
     VOCAB_SIZE: int = 128
     MAX_LENGTH: int = 100
     
     def preprocess_string(input: str) -> np.ndarray:
-        encoded = [ord(c) % VOCAB_SIZE for c in input[:MAX_LENGTH].upper()]
+        input = input.strip().upper()
+        encoded = [ord(c) % VOCAB_SIZE for c in input[:MAX_LENGTH]]
         if len(encoded) < MAX_LENGTH:
             encoded.extend([0] * (MAX_LENGTH - len(encoded)))
-        
         return np.array(encoded)
 
     saved_keras_model_filepath = '/home/oleg/Developer/GitHub/TensorFlow/TensorFlow/tensor_flow/best_model_20250606-220704.keras'
